@@ -1,18 +1,19 @@
 package com.krakedev.artesanal;
 
 public class Maquina {
-
+	
 	private String nombreCerveza;
 	private String descripcion;
 	private double precioPorMl;
 	private double capacidadMaxima;
 	private double cantidadActual;
 	private String codigo;
+	private double cantidadDesperdicio;
 	
+	public Maquina() {
+		
+	}
 	
-	
-	
-
 	public Maquina(String nombreCerveza, String descripcion, double precioPorMl, String codigo) {
 		this.nombreCerveza = nombreCerveza;
 		this.descripcion = descripcion;
@@ -75,7 +76,7 @@ public class Maquina {
 	
 	public void llenarMaquina() {
 	
-		this.cantidadActual= this.capacidadMaxima - 200;
+		this.cantidadActual= this.capacidadMaxima - 100;
 	}
 	
 	public boolean recargarCerveza(double cantidad) {
@@ -103,6 +104,22 @@ public class Maquina {
 			return 0;
 		}
 	}
+	
+	public double getCantidadDesperdicio() {
+		return cantidadDesperdicio;
+	}
+
+	public void setCantidadDesperdicio(double cantidadDesperdicio) {
+		this.cantidadDesperdicio = cantidadDesperdicio;
+	}
+
+	public void vaciarMaquina() {
+		cantidadDesperdicio=cantidadActual;
+		cantidadActual=0;
+	}
+	
+
+	
 }
 	
 
