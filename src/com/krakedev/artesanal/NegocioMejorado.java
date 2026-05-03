@@ -10,6 +10,8 @@ public class NegocioMejorado {
     private ArrayList<Cliente> clientes= new ArrayList<Cliente>();
     private int ultimoCodigo=100;
     
+    
+    
     public void registrarCliente(String nombre, String cedula) {
     	Cliente c=new Cliente(nombre, cedula);
     	c.setCodigo(ultimoCodigo);
@@ -24,8 +26,17 @@ public class NegocioMejorado {
     
     // Getters y Setters
 
+    
 	public ArrayList<Maquina> getMaquinas() {
 		return maquinas;
+	}
+
+	public ArrayList<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(ArrayList<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 	public void setMaquinas(ArrayList<Maquina> maquinas) {
@@ -78,5 +89,26 @@ public class NegocioMejorado {
 	    }
 	    return null;
 	}
+	
+	public void consumirCerveza(int codCli, String codMaq, int cant) {
+	    Maquina m = recuperarMaquina(codMaq);
+	    Cliente c = buscarClientePorCodigo(codCli);
+	    if (m != null && c != null) {
+	        double valor = m.servirCerveza(cant); 
+	        registrarConsumo(c, valor);
+	    }
+	}
+
+	private void registrarConsumo(Cliente c, double valor) {
+	    c.setTotalConsumido(c.getTotalConsumido() + valor);
+	}
+	
+	public double consultarValorVendido() {
+	    double total = 0;
+	    for (Cliente c : clientes) {
+	        total += c.getTotalConsumido();
+	    }
+	    return total;
+	}	
 
 }
