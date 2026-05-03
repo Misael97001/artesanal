@@ -5,7 +5,19 @@ import java.util.ArrayList;
 public class NegocioMejorado {
 	
     private ArrayList<Maquina> maquinas;
-
+    
+    
+    private ArrayList<Cliente> clientes= new ArrayList<Cliente>();
+    private int ultimoCodigo=100;
+    
+    public void registrarCliente(String nombre, String cedula) {
+    	Cliente c=new Cliente(nombre, cedula);
+    	c.setCodigo(ultimoCodigo);
+    	ultimoCodigo++;
+    	clientes.add(c); 
+        
+    }
+    
     public NegocioMejorado() {
         this.maquinas = new ArrayList<>();
     }
@@ -26,12 +38,14 @@ public class NegocioMejorado {
 	}
 	
 	
-	public void agregarMaquina(String nombre, String descripcion, double precio) {
+	public boolean agregarMaquina(String nombre, String descripcion, double precio) {
 	    String codigo = generarCodigo();
-	    Maquina nueva = new Maquina(nombre, descripcion, precio, codigo);
-	    maquinas.add(nueva);
-	}
-	
+	    if (recuperarMaquina(codigo) == null) {
+	        maquinas.add(new Maquina(nombre, descripcion, precio,codigo));
+	        return true;
+	    }
+	    return false;
+	}	
 	public void cargarMaquinas() {
 	    for (Maquina m : maquinas) {
 	        m.llenarMaquina(); 
@@ -42,6 +56,24 @@ public class NegocioMejorado {
 	    for (Maquina m : maquinas) {
 	        if (m.getCodigo().equals(codigo)) {
 	            return m;
+	        }
+	    }
+	    return null;
+	}
+	
+	public Cliente buscarClientePorCedula(String cedula) {
+	    for (Cliente c : clientes) {
+	        if (c.getCedula().equals(cedula)) {
+	        	return c;
+	        }
+	    }
+	    return null;
+	}
+
+	public Cliente buscarClientePorCodigo(int codigo) {
+	    for (Cliente c : clientes) {
+	        if (c.getCodigo()==codigo) {
+	        	return c;
 	        }
 	    }
 	    return null;
